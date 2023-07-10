@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Components/Header";
+import MessageInput from "./Components/MessageInput";
+import MessageList from "./Components/MessageList";
+import "./style/style.css";
+import LoginForm from "./Components/LoginForm";
+import RegisterForm from "./Components/RegisterForm";
+import { useSelector } from "react-redux";
 
 function App() {
+  const loggedIn = useSelector((state) => state.loggedIn);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      {loggedIn ? (
+        <div className="chat-room">
+          <MessageList />
+          <MessageInput />
+        </div>
+      ) : (
+        <div className="auth-container">
+          <LoginForm />
+          <RegisterForm />
+        </div>
+      )}
     </div>
   );
 }
